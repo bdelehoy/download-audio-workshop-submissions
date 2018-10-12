@@ -30,17 +30,18 @@ with open(my_csv_path) as f:
             if row[2] == "Yes":
                 # add an "_" at the beginning to their file to put them at the top
                 debug_print = "{} (who is attending) submitted: {}\n   Downloading now....".format(row[1], row[3])
-                path_to_download_to = "~/Downloads/_{}_%(title)s_%(id)s.%(ext)s".format(row[1].replace(" ", "_"))
+                path_to_download_to = "~/Downloads/_{}_{}_%(title)s_%(id)s.%(ext)s".format(count, row[1].replace(" ", "_"))
             else:
                 # there's no "_" at the beginning, so their file will be at the bottom
                 debug_print = "{} (NOT attending) submitted: {}\n   Downloading now....".format(row[1], row[3])
-                path_to_download_to = "~/Downloads/{}_%(title)s_%(id)s.%(ext)s".format(row[1].replace(" ", "_"))
+                path_to_download_to = "~/Downloads/{}_{}_%(title)s_%(id)s.%(ext)s".format(count, row[1].replace(" ", "_"))
             
             youtube_dl_string = 'youtube-dl -x --audio-format mp3 -o {} --no-check-certificate --no-playlist '.format(path_to_download_to)
             print ("\n{}\n".format(count))
             print(debug_print)
             print("EXECUTE:", youtube_dl_string)
             subprocess.call(youtube_dl_string+row[3])
+            count += 1
     print("\n\nDone!")
     print("If youtube-dl spat out any errors, try updating it with\n   youtube-dl -U")
     print("(you might need to run cmd or Powershell in Administrator Mode to do that)")
