@@ -66,7 +66,8 @@ with open(MY_CSV_PATH) as f:
     count = 1
     for row in my_reader:
         # skip the first row (it's a header)
-        if row[3] != 'Streaming link to your song choice:':
+        # ...this could be a bug if Google changes the format of the Google Form csv ;-;
+        if row[0] != 'Timestamp':
             # if the person is attending or could be attending, place them higher in the file order (so their submission shows up first)
             persons_name = row[1].replace(" ", "_") # replace the spaces in their name to underscores; for use in the file that we download to
             attending = 0
