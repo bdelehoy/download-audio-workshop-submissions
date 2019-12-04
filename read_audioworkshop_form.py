@@ -6,7 +6,7 @@ import subprocess       # To call youtube-dl (see the readme file)
 ### for the Audio Department of the Video Game Development Club at UC Irvine
 ### twitter: @_brandolf
 
-### last update: 2019 April 24
+### last update: 2019 December 3
 
 # CSV format for each row (if you modify the survey in the future, make sure to see if this changes!):
 # row[0]: timestamp (not really needed)
@@ -20,7 +20,6 @@ import subprocess       # To call youtube-dl (see the readme file)
 #             "~/Downloads/"    (the '~' means "home" and is standard on Linux... and Windows too, apparently!)
 # if this default throws up errors, just use this instead:
 #             "C:/Users/YOUR_USER_NAME_HERE/Downloads/"
-# include the "/" at the end!!!
 DOWNLOAD_TO = "~/Downloads/"
 
 if len(argv) == 1:
@@ -31,7 +30,7 @@ if len(argv) == 1:
     
     print("\nHOW TO USE:")
     
-    print("\nSupply a valid path to a CSV file as a command-line parameter, and optionally a folder to download everything to (include a '/' at the end!!).")
+    print("\nSupply a valid path to a CSV file as a command-line parameter, and optionally a folder to download everything to.")
     print("Example:\n\t\tpython read_audioworkshop_form.py ./example_form.csv C:/Users/Brandon/Downloads/Workshop04242019")
     
     print("\nIf you're going to change the format of the survey in the future, feel free to modify this script as needed. I've tried to document it well, but if anything's unclear please let me know!")
@@ -58,15 +57,16 @@ print("Will download files to:\t\t\t"+DOWNLOAD_TO)
 # file is automatically closed after because "with" is used
 with open(MY_CSV_PATH) as f:
     my_reader = reader(f)
-    print("CSV file successfully read.")
+    print("CSV file successfully opened.")
     #print("CSV file successfully read: {}\nFound {} videos to download".format(MY_CSV_PATH, sum(1 for row in my_reader)-1))
     # wanted to print out amount of entries, but... generators.... (cannot read anymore since we exhausted it)
-    print("Remember to update youtube-dl if any errors come up! Run the following command:\n\tyoutube-dl -U\nin an admin command prompt or terminal.")
+    print("\nRemember to UPDATE youtube-dl if any weirdness comes up, like errors or missing titles.")
+    print("To do that, run the following command:\n\tyoutube-dl -U\nin an admin command prompt or terminal.")
     input("\nPress Enter to continue...\n")
     count = 1
     for row in my_reader:
         # skip the first row (it's a header)
-        # ...this could be a bug if Google changes the format of the Google Form csv ;-;
+        # ...this could be a potential bug in the future if Google changes the format of the Google Form csv ;-;
         if row[0] != 'Timestamp':
             # if the person is attending or could be attending, place them higher in the file order (so their submission shows up first)
             persons_name = row[1].replace(" ", "_") # replace the spaces in their name to underscores; for use in the file that we download to

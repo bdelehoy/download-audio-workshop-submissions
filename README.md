@@ -6,29 +6,26 @@ Run it like this in a command prompt or terminal:
 
 `python read_audioworkshop_form.py C:/path/to/your/form.csv C:/path/to/your/folder/of/choice`
 
-Requires the programs `youtube-dl` and `ffmpeg` in your PATH variable. And Python 3. Get them here:
+Requires the programs `youtube-dl`, `ffmpeg`, and `Python 3`. Get them all here:
 
 * [youtube-dl](https://rg3.github.io/youtube-dl/)
-    * [youtube-dl downloads page](https://ytdl-org.github.io/youtube-dl/download.html) - you need the Windows .exe and also the C++ package that they mention here. Install that package and youtube-dl should just  work in a command prompt.
+    * [youtube-dl downloads page](https://ytdl-org.github.io/youtube-dl/download.html) - you need the "Windows .exe" and also the C++ package that they mention here at the top of the page. Make a folder for it where it's safe, `C:\Program Files\youtube-dl` for example, and put `youtube-dl.exe` in there. Remember this.
 * [ffmpeg](https://www.ffmpeg.org/download.html)
-    * [ffmpeg Windows build](https://ffmpeg.zeranoe.com/builds/) - this should be what you need if you want to run this Python script on a Windows machine.
+    * [ffmpeg Windows build](https://ffmpeg.zeranoe.com/builds/) - Make sure you download "Static" linking. Just like with `youtube-dl`, make a folder for it somewhere and put *everything* from the .zip you download in there. Observe that `ffmpeg.exe` is in the `/bin/` folder. Remember this.
+* [Python 3](https://www.python.org/downloads/) - This should be fairly straightforward to install. See the first note at the bottom of this document.
 
-(I'd recommend making a folder in Program Files so you can put these where they seem fit, but you do you. Just don't put them anywhere where they could be deleted.)
-
-* [and Python 3.](https://www.python.org/)
-
-How to edit your PATH variable on Windows 10:
+`youtube-dl` and `ffmpeg` need to be in your system's PATH variable, which just means that you need to be able to run those programs from anywhere in a command prompt. Here's how to do that on Windows 10:
 
 1. Open the Control Panel (just type "Control Panel" on the Start menu)
 2. Click "System"
 3. Click "Advanced System Settings" on the left panel
 4. Click "Environment Variables"
-5. In the upper list, find "Path". Click on it and then click the "Edit" button just below the list. This should open up a window that has a neat list of every folder currently in your PATH right now - it could be empty, it could not.
+5. In the upper "User Variables for..." list, find "Path". Click on it and then click the "Edit" button just below the list. This should open up a window that has a neat list of every folder currently in PATH right now.
 6. Open a file explorer and navigate to the folder you want to add. Click on the file address bar and copy it.
 7. In the Path editing window that opened in step 5, click "New" on the top-right and paste in the address from step 6.
-8. Click "OK" and close all the windows that popped up. You're done!
+8. Click "OK".
 
-Run these steps for the folders that contain the files `youtube-dl.exe` and `ffmpeg.exe`. You should find the ffmpeg .exe's in the `/bin` folder. `/bin` is short for "binary" and this is where you can find executable programs in lots of applications. These programs can now be called from anywhere you are on your computer, which this Python script relies on.
+Run these steps for the folders you made that contain the files `youtube-dl.exe` and `ffmpeg.exe`. Remember that you should find `ffmpeg.exe` in the `/bin/` folder wherever you put `ffmpeg` before. Now that these folders are on your PATH variable, any program inside them can now be run from anywhere on your computer.
 
 * If typing `python` in the command prompt does nothing, then a possible error could be that Python isn't on your PATH. If you're installing Python for the first time, there should be an option somewhere to add Python to your PATH variable. Make sure that box is ticked! If you have Python installed already but it's not on your PATH, you can always add it yourself with the steps above. If you're on Windows, I think its default folder should be somewhere in `C:\Program Files\`, or maybe `C:\Users\YOUR_USERNAME\AppData\Local\Programs\Python\` - you're looking for the folder that has `python.exe`.
 
