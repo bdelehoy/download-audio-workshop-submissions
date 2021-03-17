@@ -28,7 +28,7 @@ if len(argv) == 1:
     print("\nHOW TO USE:")
     
     print("\nSupply a valid path to a CSV file as a command-line parameter, and optionally a folder to download everything to.")
-    print("Example:\n\t\tpython read_audioworkshop_form.py ./example_form.csv C:/Users/Brandon/Downloads/Workshop04242019")
+    print("Example:\n\t\tpython read_audioworkshop_form.py ./example_form.csv C:/Users/Brandon/Downloads/Workshop04242019/")
     
     print("\nIf you're going to change the format of the survey in the future, feel free to modify this script as needed. I've tried to document it well, but if anything's unclear please let me know!")
     
