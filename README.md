@@ -4,7 +4,7 @@ I've confirmed that this script works with Windows 10.  Some modification *may* 
 
 Run it like this in a command prompt or terminal:
 
-`python read_audioworkshop_form.py C:/path/to/your/form.csv C:/path/to/your/folder/of/choice`
+`python read_audioworkshop_form.py C:/path/to/your/form.csv C:/path/to/your/folder/of/choice/`
 
 Requires the programs `youtube-dl`, `ffmpeg`, and `Python 3`. Get them all here:
 
