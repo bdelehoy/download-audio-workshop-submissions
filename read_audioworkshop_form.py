@@ -4,9 +4,6 @@ import subprocess       # To call youtube-dl (see the readme file)
 
 ### Originally written by Brandon Delehoy
 ### for the Audio Department of the Video Game Development Club at UC Irvine
-### twitter: @_brandolf
-
-### last update: 2019 December 3
 
 # CSV format for each row (if you modify the survey in the future, make sure to see if this changes!):
 # row[0]: timestamp (not really needed)
@@ -54,7 +51,6 @@ print("Will download files to:\t\t\t"+DOWNLOAD_TO)
 
 ###################
 ### THE DOWNLOADIN'
-# file is automatically closed after because "with" is used
 with open(MY_CSV_PATH) as f:
     my_reader = reader(f)
     print("CSV file successfully opened.")
@@ -66,35 +62,34 @@ with open(MY_CSV_PATH) as f:
     count = 1
     for row in my_reader:
         # skip the first row (it's a header)
-        # ...this could be a potential bug in the future if Google changes the format of the Google Form csv ;-;
         if row[0] != 'Timestamp':
             # if the person is attending or could be attending, place them higher in the file order (so their submission shows up first)
-            persons_name = row[1].replace(" ", "_") # replace the spaces in their name to underscores; for use in the file that we download to
-            attending = 0
+            persons_name = row[1].replace(" ", "_") # replace the spaces in their name to underscores; for use in naming the file that we download to
+            attending = ''
+            path_to_download_to = DOWNLOAD_TO
             if row[2] == "Yes":
-                # add an "__" at the beginning to their file to put them at the top
-                path_to_download_to = DOWNLOAD_TO+"__{}_{}___%(title)s_%(id)s.%(ext)s".format(count, persons_name)
+                path_to_download_to += "__"     # add an "__" at the beginning to their file to put them at the top
             elif row[2] == "Maybe":
-                # add "_" at the beginning to their file to put them in a second, middle category
-                path_to_download_to = DOWNLOAD_TO+"_{}_{}___%(title)s_%(id)s.%(ext)s".format(count, persons_name)
-            else:
-                # there's no "_" at the beginning, so their file will be at the bottom
-                path_to_download_to = DOWNLOAD_TO+"{}_{}___%(title)s_%(id)s.%(ext)s".format(count, persons_name)
+                path_to_download_to += "_"      # add "_" at the beginning to their file to put them in a second, middle category
+            # if the person's not attending, no extra formatting is needed and theirs will sort to the bottom by default
+            path_to_download_to += "{}_{}___%(title)s_%(id)s.%(ext)s".format(count, persons_name)
             
-            print("Submission #{}:".format(count))
-            print("\tName:\t\t" + row[1])
-            print("\tAttending?\t" + row[2].upper())
-            print("\tSubmitted at:\t" + row[0])
-            print("\tLink:\t\t" + row[3])
-            print("\tSaving to:\t" + path_to_download_to)
+            print("** Submission #{}:".format(count))
+            print("** \tName:\t\t" + row[1])
+            print("** \tAttending?\t" + row[2].upper())
+            print("** \tSubmitted at:\t" + row[0])
+            print("** \tLink:\t\t" + row[3])
+            print("** \tSaving to:\t" + path_to_download_to)
             
             # the string that we use to call youtube-dl, with all of its own arguments and flags
-            # pro-tip: if you want to keep all the videos, add "-k" (without quotes) to this string, at the very end (after the second set of braces)
             youtube_dl_string = 'youtube-dl -x --audio-format mp3 -o {} --no-check-certificate --no-playlist {}'.format(path_to_download_to, row[3].strip())
-            print("EXECUTE:\n"+youtube_dl_string)
+            # if you want to keep all the videos, use the following string instead:
+            # youtube_dl_string = 'youtube-dl -x --audio-format mp3 -o {} --no-check-certificate --no-playlist {} -k'.format(path_to_download_to, row[3].strip())
+            
+            print("** EXECUTE:\n** "+youtube_dl_string)
             subprocess.call(youtube_dl_string)   # call youtube-dl! this could take a while.
             
-            print ("Submission {} complete.\n".format(count))
+            print ("\n** Submission {} complete.\n".format(count))
             count += 1
     print("\nDone!")
     print("If youtube-dl spat out any errors, try updating it with\n   youtube-dl -U")
